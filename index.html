@@ -35,10 +35,10 @@
 							<img class="profile_photo" src="images/profile.jpg" title="¡Este soy yo!" alt="Foto de Perfil" style="border-radius: 50%;">
 						</div>
 						<h1>Cristian San Martin Jara</h1>
-						<p>Ingeniero en Computación e Informática apasionado por el Desarrollo Web.</p>
+						<p>Ingeniero en Computación e Informática.</p>
 						<ul class="actions">
 							<li><a href="#four" class="button scrolly">Contáctame</a></li>
-							<li><a href="#" class="button primary" id="buttoncv">Descarga mi CV</a></li>
+							<li><a href="https://1drv.ms/b/s!ArUJLhgInt7ege1lDOnedP7Ir4WkBw?e=n2Blsk" class="button primary" id="buttoncv" target="_blank">Descarga mi CV</a></li>
 						</ul>
 					</div>
 				</section>
@@ -48,12 +48,10 @@
 				<section id="about" class="wrapper style3 fullscreen fade-up">
 					<div class="inner">
 						<h1>Sobre Mi</h1>
-						<p>Egresado de la carrera Ingeniería en Computación e Informática de la Universidad Andrés Bello, me considero una persona que le encanta desarrollar y aprender nuevas cosas.
-							Estoy
+						<p>Egresado de la carrera Ingeniería en Computación e Informática de la Universidad Andrés Bello, me considero una persona que le encanta desarrollar y aprender nuevas cosas. Me apasiona el desarrollo web y la programación en general, siempre buscando mejorar y aprender nuevas tecnologías.</p> 
 						</p>
 						<ul class="actions">
-							<li><a href="#four" class="button scrolly">Contáctame</a></li>
-							<li><a href="#" class="button primary" id="buttoncv">Descarga mi CV</a></li>
+							<li><a href="https://1drv.ms/b/s!ArUJLhgInt7ege1lDOnedP7Ir4WkBw?e=n2Blsk" class="button primary" id="buttoncv" target="_blank">Descarga mi CV</a></li>
 						</ul>
 					</div>
 				</section>
@@ -64,7 +62,7 @@
 							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
 							<div class="content">
 								<div class="inner">
-									<h2>Sed ipsum dolor</h2>
+									<h2>E</h2>
 									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
 									<ul class="actions">
 										<li><a href="generic.html" class="button">Learn more</a></li>
@@ -148,25 +146,26 @@
 							<p>Puedes contactarme llenando este formulario o por los medios que tienes a la derecha. Encantado de contestarte.</p>
 							<div class="split style1">
 								<section>
-									<form method="post" action="#">
+									<form id="contact-form">
 										<div class="fields">
 											<div class="field half">
 												<label for="name">Nombre</label>
-												<input type="text" placeholder="Ingresa tu nombre." name="name" id="name" />
+												<input type="text" name="user_name" placeholder="Nombre" required>
 											</div>
 											<div class="field half">
-												<label for="email">Email</label>
-												<input type="text" placeholder="Ingresa tu correo." name="email" id="email" />
+												<label for="email">Correo</label>
+												<input type="email" name="user_email" placeholder="Correo" required>
 											</div>
 											<div class="field">
 												<label for="message">Mensaje</label>
-												<textarea name="message" placeholder="Redacta tu correo acá." id="message" rows="5"></textarea>
+												<textarea name="message" placeholder="Mensaje" required></textarea>
 											</div>
 										</div>
 										<ul class="actions">
-											<li><a href="" class="button submit">Enviar</a></li>
+											<li><button type="submit">Enviar</button></li>
 										</ul>
 									</form>
+								
 								</section>
 								<section>
 									<ul class="contact">
@@ -187,7 +186,7 @@
 										</li>
 										<li>
 											<h3>Curriculum Vitae</h3>
-											<li><a href="#" class="button primary" id="buttoncv">Descarga mi CV</a></li>
+											<li><a href="https://1drv.ms/b/s!ArUJLhgInt7ege1lDOnedP7Ir4WkBw?e=n2Blsk" class="button primary" id="buttoncv" target="_blank">Descarga mi CV</a></li>
 										</li>
 									</ul>
 								</section>
@@ -215,5 +214,47 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
+			<!-- EmailJS -->
+			<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.10.0/dist/email.min.js"></script>
+			<script>
+				(function() {
+					emailjs.init("XdUZR0nhKvDTVSJTs");
+				})();
+			</script>
+
+			<!-- Incluir SweetAlert2 desde CDN -->
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+			<!-- Script para enviar el formulario con EmailJS y mostrar alertas con SweetAlert2 -->
+			<script>
+				document.getElementById('contact-form').addEventListener('submit', function(e) {
+					e.preventDefault(); // Evitar el envío del formulario de forma predeterminada
+					// Obtener el valor del nombre del usuario
+					const userName = document.getElementsByName('user_name')[0].value;
+					// Enviar el formulario con EmailJS
+					emailjs.sendForm('service_an98d7s', 'template_qqr3jlu', this)
+						.then(function(response) {
+							// Mostrar la alerta con el nombre del usuario en el mensaje
+							Swal.fire({
+								icon: 'success',
+								title: '¡Mensaje enviado!',
+								text: `Tu correo ${userName} se ha enviado correctamente.`,
+								confirmButtonText: 'Aceptar',
+								customClass: {
+									popup: 'custom-popup',
+									confirmButton: 'custom-confirm'	
+								}
+							});
+						}, function(error) {
+							// Mostrar alerta de error en caso de fallo
+							Swal.fire({
+								icon: 'error',
+								title: 'Error',
+								text: 'No se pudo enviar el mensaje. Inténtalo de nuevo más tarde.',
+								confirmButtonText: 'Aceptar'
+							});
+						});
+					});
+				</script>
 	</body>
 </html>
