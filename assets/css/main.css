@@ -3952,3 +3952,6 @@ input, select, textarea {
 	text-align: center;            /* Alineación horizontal */
 }
 
+.features .span-2 {
+	flex: 2 1 100%; /* Hace que la sección ocupe dos columnas */
+}
